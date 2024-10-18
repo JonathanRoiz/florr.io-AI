@@ -1,0 +1,49 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Ant Hole"
+    },
+    {
+      "id": 1,
+      "name": "Baby Ant"
+    },
+    {
+      "id": 2,
+      "name": "Bee"
+    },
+    {
+      "id": 3,
+      "name": "Centipede"
+    },
+    {
+      "id": 4,
+      "name": "Dandelion"
+    },
+    {
+      "id": 5,
+      "name": "Hornet"
+    },
+    {
+      "id": 6,
+      "name": "Ladybug"
+    },
+    {
+      "id": 7,
+      "name": "Rock"
+    },
+    {
+      "id": 8,
+      "name": "Soldier Ant"
+    },
+    {
+      "id": 9,
+      "name": "Worker Ant"
+    }
+  ],
+  "info": {
+    "year": 2024,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
