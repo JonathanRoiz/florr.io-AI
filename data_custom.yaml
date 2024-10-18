@@ -1,0 +1,6 @@
+train: C:\Users\jonat\Downloads\projects\florr.io-AI\train
+val: C:\Users\jonat\Downloads\projects\florr.io-AI\val
+
+nc: 8
+
+names: ['Ant Hole','Baby Ant','Bee','Centipede','Ladybug','Rock','Soldier Ant','Worker Ant']
