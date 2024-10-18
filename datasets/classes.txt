@@ -1,0 +1,10 @@
+Common Baby Ant
+Common Bee
+Common Centipede
+Common Ladybug
+Common Worker Ant
+Unusual Baby Ant
+Unusual Bee
+Unusual Centipeded
+Unusual Ladybug
+Unusual Worker Ant
