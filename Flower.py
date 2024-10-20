@@ -6,8 +6,8 @@ class Flower():
         self.y = 0
         self.model = YOLO("best.pt")
 
-    def step(self,image):
-        enemies = self.model(image,conf=0.6)
+    def step(self):
+        enemies = self.model('test.png', conf=0.6)
 
     def move(self):
         '''Move to a point'''

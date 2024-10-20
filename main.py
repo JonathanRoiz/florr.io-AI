@@ -1,5 +1,5 @@
 import mss
-#from Flower import Flower
+from Flower import Flower
 
 import time
 
@@ -8,15 +8,14 @@ right = 1920
 top = 0
 bottom = 1080
 
-#flower = Flower()
+flower = Flower()
 
 with mss.mss() as sct:
-    #bbox = (left,top,right,bottom)
-    #sct_img = sct.grab(bbox)
+    bbox = (left,top,right,bottom)
     
-    #img = mss.tools.to_png(sct_img.rgb, sct_img.size)
-    start_time = time.time()
-    for x in range(10):
-        img = sct.shot()
-        #flower.step(img)
-    print("My program took", time.time() - start_time, "to run")
+    for x in range(60):
+        img = sct.grab(bbox)
+        mss.tools.to_png(img.rgb, img.size, output='test.png')
+        start_time = time.time()
+        flower.step()
+        print("My prediction took", time.time() - start_time, "to run")
