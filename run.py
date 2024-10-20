@@ -2,6 +2,4 @@ from ultralytics import YOLO
 
 model = YOLO("best.pt")
 
-results = model("raw_images/Capture.PNG", conf=0.8)
-
-results[0].show()
+results = model("test.mp4", save=True, show=True, conf=0.3)
