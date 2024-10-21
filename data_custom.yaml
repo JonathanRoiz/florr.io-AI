@@ -1,5 +1,5 @@
-train: C:\Users\jonat\Downloads\projects\florr.io-AI\train
-val: C:\Users\jonat\Downloads\projects\florr.io-AI\val
+train: C:\Users\jonat\Downloads\florr.io\train
+val: C:\Users\jonat\Downloads\florr.io\val
 
 nc: 13
 
