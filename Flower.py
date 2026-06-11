@@ -5,7 +5,7 @@ pyautogui.PAUSE = 0.0
 import cv2
 import numpy as np
 from navigation import astar, find_nearest_walkable, is_near_wall
-
+from overlay import draw_overlay
 
 ATTACK_DISTANCE = 75 # How far away to stay while attacking
 TARGET_DISTANCE = 250 # How far away to stay to not be targeted by mobs
@@ -18,7 +18,7 @@ class Flower():
         self.y = 539
         self.food = ['Bee'] # List of enemies you want to farm
         #self.danger = ['Centipede'] # List of enemies you want to run from
-        self.model = YOLO("best_yolo26.onnx", task="detect")
+        self.model = YOLO("best_yolo26.pt", task="detect")
         self.current_path = None
         self.current_target = None
 
@@ -70,8 +70,13 @@ class Flower():
 
         return closest_enemy
 
-    def step(self, frame):
-        results = self.model.predict(frame, conf=0.4, imgsz=640, verbose=False, task="detect") # imgsz = 256
+    def step(self, frame, screen):
+        results = self.model.predict(frame, conf=0.4, imgsz=384, verbose=True, task="detect")
+        
+        if results is None:
+            return
+
+        draw_overlay(screen, results, self.model.names)
 
         closest_enemy = self.find_closest_enemy(results)
 
@@ -91,12 +96,6 @@ class Flower():
         else:
             if player_pos:
                 self.move(binary, player_pos, (171, 128))
-        
-        annotated = results[0].plot()
-        cv2.namedWindow("Detections", cv2.WINDOW_NORMAL)
-        cv2.moveWindow("Detections", 0, 0)
-        cv2.imshow("Detections", annotated)
-        cv2.waitKey(1)
 
     def move(self, binary, player_pos, target_pos):
         player_pos = find_nearest_walkable(binary, player_pos)
