@@ -2,7 +2,7 @@ import os
 import shutil
 from ultralytics import YOLO
 
-model = YOLO("best_yolo11n.pt")
+model = YOLO("best_yolo26.pt")
 image_dir = "frames"
 output_dir = "prelabeled"
 

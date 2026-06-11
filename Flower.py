@@ -18,7 +18,7 @@ class Flower():
         self.y = 539
         self.food = ['Bee'] # List of enemies you want to farm
         #self.danger = ['Centipede'] # List of enemies you want to run from
-        self.model = YOLO("best_yolo26.pt", task="detect")
+        self.model = YOLO("best_yolo26.onnx", task="detect")
         self.current_path = None
         self.current_target = None
 
