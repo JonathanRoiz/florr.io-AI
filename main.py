@@ -1,7 +1,7 @@
 # user overlay or pyoverlay packages to make futuristic looking overlay to the game that shows what the bot is doing
-import mss
 from Flower import Flower
 import numpy as np
+from screen_capture import capture_window
 
 left = 0
 right = 1920
@@ -10,11 +10,7 @@ bottom = 1080
 
 flower = Flower()
 
-with mss.MSS() as sct:
-    bbox = (left,top,right,bottom)
-    
-    while True:
-        img = sct.grab(bbox)
-        frame = np.array(img)
-        frame = frame[:, :, :3]
-        flower.step(frame)
+while True:
+    frame = capture_window("florr.io - Google Chrome")
+    #frame = np.array(img)
+    flower.step(frame)

@@ -7,3 +7,4 @@ runs/
 *.onnx
 *.json
 *.mkv
+*.zip

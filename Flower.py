@@ -71,7 +71,8 @@ class Flower():
         return closest_enemy
 
     def step(self, frame):
-        results = self.model.predict(frame, conf=0.4, imgsz=640, verbose=False) # imgsz = 256
+        results = self.model.predict(frame, conf=0.4, imgsz=640, verbose=False, task="detect") # imgsz = 256
+
         closest_enemy = self.find_closest_enemy(results)
 
         binary = self.get_minimap_grid(frame)
@@ -90,6 +91,12 @@ class Flower():
         else:
             if player_pos:
                 self.move(binary, player_pos, (171, 128))
+        
+        annotated = results[0].plot()
+        cv2.namedWindow("Detections", cv2.WINDOW_NORMAL)
+        cv2.moveWindow("Detections", 0, 0)
+        cv2.imshow("Detections", annotated)
+        cv2.waitKey(1)
 
     def move(self, binary, player_pos, target_pos):
         player_pos = find_nearest_walkable(binary, player_pos)
