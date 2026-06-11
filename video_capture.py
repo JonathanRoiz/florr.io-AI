@@ -24,7 +24,7 @@ while True:
     
     for box in results[0].boxes:
         conf = box.conf.item()
-        if 0.2 < conf < 0.4:
+        if 0.1 < conf < 0.5:
             cv2.imwrite(f"frames/uncertain_{saved}.png", frame)
             saved += 1
             break
