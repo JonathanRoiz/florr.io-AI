@@ -17,7 +17,7 @@ while True:
         break
 
     frame_count += 1
-    if frame_count % 30 != 0:
+    if frame_count % 60 != 0:
         continue
     
     results = model.predict(frame, conf=0.1, verbose=False)
@@ -28,7 +28,7 @@ while True:
             cv2.imwrite(f"frames/uncertain_{saved}.png", frame)
             saved += 1
             break
-        if saved >= 200:
+        if saved >= 25:
             break
 
 cap.release()
