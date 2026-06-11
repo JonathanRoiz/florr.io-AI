@@ -4,7 +4,7 @@ import pyautogui
 pyautogui.PAUSE = 0.0
 import cv2
 import numpy as np
-from navigation import astar, find_nearest_walkable
+from navigation import astar, find_nearest_walkable, is_near_wall
 
 
 ATTACK_DISTANCE = 75 # How far away to stay while attacking
@@ -18,7 +18,7 @@ class Flower():
         self.y = 539
         self.food = ['Bee'] # List of enemies you want to farm
         #self.danger = ['Centipede'] # List of enemies you want to run from
-        self.model = YOLO("best_yolo11n.pt")
+        self.model = YOLO("best_yolo26.onnx", task="detect")
         self.current_path = None
         self.current_target = None
 
@@ -71,19 +71,23 @@ class Flower():
         return closest_enemy
 
     def step(self, frame):
-        results = self.model.predict(frame, conf=0.6, imgsz=512, verbose=False) # imgsz = 256
-        enemies_pos = []
-        for enemy in results[0].boxes:
-            enemies_pos.append(enemy.xywh[0].tolist())
-            x,y,w,h = enemy.xywh[0]
+        results = self.model.predict(frame, conf=0.4, imgsz=640, verbose=False) # imgsz = 256
         closest_enemy = self.find_closest_enemy(results)
 
-        if closest_enemy["distance"] < TARGET_DISTANCE or closest_enemy["name"] in self.food:
-            self.attack(closest_enemy)
-        else:
-            binary = self.get_minimap_grid(frame)
-            player_pos = self.find_player_on_minimap(frame)
+        binary = self.get_minimap_grid(frame)
+        player_pos = self.find_player_on_minimap(frame)
 
+        if closest_enemy["distance"] < TARGET_DISTANCE or closest_enemy["name"] in self.food:
+            if player_pos and is_near_wall(binary, player_pos) and closest_enemy["distance"] > ATTACK_DISTANCE:
+                # Near a wall, use pathfinding toward enemy
+                enemy_minimap = (
+                    int(player_pos[0] + (closest_enemy["position"]["x"] - self.x) / 150.4),
+                    int(player_pos[1] + (closest_enemy["position"]["y"] - self.y) / 150.4)
+                )
+                self.move(binary, player_pos, enemy_minimap)
+            else:
+                self.attack(closest_enemy)
+        else:
             if player_pos:
                 self.move(binary, player_pos, (171, 128))
 

@@ -1,7 +1,6 @@
 # user overlay or pyoverlay packages to make futuristic looking overlay to the game that shows what the bot is doing
 import mss
 from Flower import Flower
-import time
 import numpy as np
 
 left = 0

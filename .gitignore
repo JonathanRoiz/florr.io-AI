@@ -4,3 +4,6 @@ runs/
 *.png
 *.pyc
 *.cache
+*.onnx
+*.json
+*.mkv

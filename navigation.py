@@ -1,6 +1,7 @@
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 from typing import Any
+import numpy as np
 
 def astar(binary, start, end) -> (tuple[Any, int] | tuple[list, int]):
     # pathfinding expects 1=walkable, 0=wall
@@ -30,3 +31,8 @@ def find_nearest_walkable(binary, pos):
                     if grid_matrix[ny][nx] == 1:
                         return (nx, ny)
     return None  # no walkable pixel found nearby
+
+def is_near_wall(binary, player_pos, threshold=1):
+    x, y = player_pos
+    region = binary[max(0, y-threshold):y+threshold, max(0, x-threshold):x+threshold]
+    return np.any(region == 0)
