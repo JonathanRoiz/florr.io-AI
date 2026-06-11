@@ -1,8 +1,8 @@
 # user overlay or pyoverlay packages to make futuristic looking overlay to the game that shows what the bot is doing
 import mss
 from Flower import Flower
-
 import time
+import numpy as np
 
 left = 0
 right = 1920
@@ -11,12 +11,11 @@ bottom = 1080
 
 flower = Flower()
 
-with mss.mss() as sct:
+with mss.MSS() as sct:
     bbox = (left,top,right,bottom)
     
-    for i in range(60):
+    while True:
         img = sct.grab(bbox)
-        mss.tools.to_png(img.rgb, img.size, output='test.png')
-        #start_time = time.time()
-        flower.step()
-        #print("My prediction took", time.time() - start_time, "to run")
+        frame = np.array(img)
+        frame = frame[:, :, :3]
+        flower.step(frame)

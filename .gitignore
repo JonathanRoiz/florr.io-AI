@@ -1,2 +1,6 @@
 runs/
 *.pt
+*.avi
+*.png
+*.pyc
+*.cache
